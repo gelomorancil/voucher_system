@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function Dashboard() {
     return (
@@ -18,6 +18,9 @@ export default function Dashboard() {
                         <div className="p-6 text-gray-900">
                             You're logged in!
                         </div>
+                        {/* <button className='bg-purple-100 p-2'>CLICK ME!</button> */}
+                        <Link href={route('voucher.create')} className='bg-purple-100 p-2'>Redirect Here</Link>
+                        <Link href={route('voucher.index')} className='bg-purple-100 p-2'>Voucher List</Link>
                     </div>
                 </div>
             </div>
