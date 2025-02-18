@@ -30,6 +30,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('voucher.index')}
+                                    active={route().current('voucher.index')}
+                                >
+                                    Voucher Profiles
+                                </NavLink>
                             </div>
                         </div>
 
