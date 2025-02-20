@@ -17,4 +17,8 @@ class Voucher_parents extends Model
         'voucher_id',
         'qty'
     ];
+
+    public function voucher_profile(){
+        return $this->belongsTo(Voucher_profile::class, 'voucher_id');
+    }
 }

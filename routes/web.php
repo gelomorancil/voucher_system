@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/voucher/create', [VoucherProfileController::class, 'create'])->name('voucher.create');
     Route::post('/voucher/store', [VoucherProfileController::class, 'store'])->name('voucher.store');
     // EDIT VOUCHER PROFILE
-    Route::get('/voucher/edit/{id}', [VoucherProfileController::class, 'edit'])->name('voucher.edit');
+    // Route::get('/voucher/edit/{id}', [VoucherProfileController::class, 'edit'])->name('voucher.edit');
     Route::patch('/voucher/edit/{id}', [VoucherProfileController::class, 'update'])->name('voucher.update');
     // HARD DELETE KAY NA TAMAD NAKO MAG UBRA DANAY SA SOFT DELETE
     Route::delete('/voucher/delete/{id}', [VoucherProfileController::class, 'destroy'])->name('voucher.destroy');

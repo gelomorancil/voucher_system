@@ -11,6 +11,7 @@ import Modal from "@/Components/Modal";
 
 
 const EditVoucherProfileForm = ({voucher_profile, success, error }) => {
+
     const { data, setData, patch, processing, errors } = useForm({
         voucher_name: voucher_profile.voucher_name,
         voucher_description: voucher_profile.voucher_description,
