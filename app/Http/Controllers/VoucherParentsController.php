@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Voucher_parents;
 use App\Models\Voucher_profile;
+use App\Models\Voucher_child;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -60,10 +61,19 @@ class VoucherParentsController extends Controller
             'qty'=>'required | int'
         ]);  
         try{
-            Voucher_parents::create([
-                'voucher_id'=>$request->voucher_id,
+
+            $new_parent = Voucher_parents::create([
+            'voucher_id'=>$request->voucher_id,
                 'qty'=>$request->qty
             ]);
+
+            for($i = 0; $i < $request->qty; $i++){
+                Voucher_child::create([
+                    'voucher_parent_id' => $new_parent->id,
+                    'control_no' => '09123'
+                ]);
+            }
+            
             return redirect(route('parent.index'))->with('success','i miss you');
         }catch(\Exception $e){
             return redirect(route('parent.index'))->with('error','i miss you');
@@ -102,7 +112,7 @@ class VoucherParentsController extends Controller
             'voucher_id'=>'required | int',
             'qty'=>'required | int'
         ]);  
-        
+
         Voucher_parents::where('id', $id)->update([
             'voucher_id'=>$request->voucher_id,
             'qty'=>$request->qty
