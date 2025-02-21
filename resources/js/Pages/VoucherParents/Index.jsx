@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import Create from "../VoucherParents/Create";
 import DeleteVoucherParentForm from "./Partials/DeleteVoucherParentForm";
 import EditVoucherParentForm from "./Partials/EditVoucherParentForm";
@@ -83,14 +83,9 @@ const Index = ({ all_voucher_profiles, voucher_parents, success, error }) => {
                                                 <td className="py-2 hover:cursor-pointer">
                                                     <div className="flex">
                                                         {/* FOR EDIT */}
-                                                        <EditVoucherParentForm
-                                                            voucher_parents={
-                                                                parent
-                                                            }
-                                                            voucher_profiles={
-                                                                all_voucher_profiles
-                                                            }
-                                                        />
+                                                        <Link href={route('child.show',parent.id)} className="p-4 bg-yellow-50">Print</Link>
+                                                        
+                                                        <EditVoucherParentForm voucher_parents={parent} voucher_profiles={all_voucher_profiles}/>
 
                                                         {/* DELETE BUTTON SHEESHKEBABERS */}
                                                         {/* <DeleteVoucherProfileForm id={voucher.id}/> */}

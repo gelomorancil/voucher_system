@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@media print{
+ .print-view{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem 0;
+ }
+ .print-view>div{
+    page-break-inside: avoid
+ }
+}

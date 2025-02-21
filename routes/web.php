@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VoucherChildController;
 use App\Http\Controllers\VoucherParentsController;
 use App\Http\Controllers\VoucherProfileController;
 use Illuminate\Foundation\Application;
@@ -50,6 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/parent/voucher/edit/{id}', [VoucherParentsController::class, 'update'])->name('parent.update');
     // HARD DELETE KAY NA TAMAD NAKO MAG UBRA DANAY SA SOFT DELETE
     Route::delete('/parent/voucher/delete/{id}', [VoucherParentsController::class, 'destroy'])->name('parent.destroy');
+
+    // VOUCHER CHILD
+    // Route::get('/parent/voucher/${id}/preview', [VoucherChildController::class, 'index'])->name('child.index');
+    Route::get('/parent/voucher/print/{id}/preview', [VoucherChildController::class, 'show'])->name('child.show');
 });
 
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Voucher_child;
+use App\Models\Voucher_parents;
+use App\Models\Voucher_profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class VoucherChildController extends Controller
 {
@@ -35,9 +38,19 @@ class VoucherChildController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Voucher_child $voucher_child)
+    public function show($id)
     {
         //
+        $voucher_child = Voucher_child::with(['voucher_parent.voucher_profile'])->where('voucher_parent_id', $id)->get();
+        // $voucher_profile = Voucher_profile::all();
+        // $voucher_parents = Voucher_parents::all();
+        // $voucher_child = Voucher_child::where('voucher_parent_id', $id)->get();
+        // $voucher_child = Voucher_child::findAll();
+        return Inertia::render('VoucherChild/Index',[
+            'voucher_child' => $voucher_child,
+            // 'profile' => $voucher_profile,
+            // 'parent' => $voucher_parents,
+        ]);
     }
 
     /**

@@ -67,10 +67,14 @@ class VoucherParentsController extends Controller
                 'qty'=>$request->qty
             ]);
 
-            for($i = 0; $i < $request->qty; $i++){
+            for ($i = 0; $i < $request->qty; $i++) {
+                $currentDate = now()->format('Ymd');
+                $controlNo = $currentDate . $new_parent->id .str_pad($i + 1, 2, '0', STR_PAD_LEFT);
+                
+                // Create the Voucher_child
                 Voucher_child::create([
                     'voucher_parent_id' => $new_parent->id,
-                    'control_no' => '09123'
+                    'control_no' => $controlNo,
                 ]);
             }
             

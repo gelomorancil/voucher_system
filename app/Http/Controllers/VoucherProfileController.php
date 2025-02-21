@@ -21,7 +21,6 @@ class VoucherProfileController extends Controller
             $voucher_profile = Voucher_profile::find($id);
 
             if (!$voucher_profile) {
-                // Handle the case where the voucher profile is not found (optional)
                 return redirect()->route('voucher.index')->with('error', 'Voucher not found');
             }
 
