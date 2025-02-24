@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
+import InputFile from "@/Components/InputFile";
 import InputLabel from "@/Components/InputLabel";
 import InputError from "@/Components/InputError";
 // import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -14,14 +15,25 @@ const Create = () => {
     const { data, setData, post, processing, errors, reset } = useForm({
         voucher_name: "",
         voucher_description: "",
+        image_name: "",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
+
+        // Create a new FormData object
+        const formData = new FormData();
+        formData.append('voucher_name', data.voucher_name);
+        formData.append('voucher_description', data.voucher_description);
+        if (data.image_name) {
+            formData.append('image_name', data.image_name)
+        }
+
         post(route("voucher.store"), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onFinish: () => reset(),
+            data: formData, // Pass FormData to Inertia
         });
     };
 
@@ -92,6 +104,16 @@ const Create = () => {
                                 setData("voucher_description", e.target.value)
                             }
                         />
+                        <InputLabel htmlFor="image_name" value="Voucher Image" />
+                            <InputFile
+                                id="image_name"
+                                name="image_name"
+                                className="mt-1 block w-full"
+                                onChange={(e) =>
+                                    setData("image_name", e.target.files[0])
+                                }
+                            />
+
                         
                         <div className="flex justify-between gap-2">
                         <PrimaryButton disabled={processing} className='w-full'>

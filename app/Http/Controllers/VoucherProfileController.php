@@ -6,6 +6,8 @@ use App\Models\Voucher_profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 use Inertia\Inertia;
 
@@ -57,12 +59,19 @@ class VoucherProfileController extends Controller
         $request->validate([
             'voucher_name' => 'required | string',
             'voucher_description' => 'required | string',
+            'image_name' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $imageName = Str::random(32). "." .$request->image_name->getClientOriginalExtension();
         try {
             Voucher_profile::create([
                 'voucher_name' => $request->voucher_name,
                 'voucher_description' => $request->voucher_description,
+                'image_name' => $imageName,
             ]);
+
+            Storage::disk('public')->put($imageName, file_get_contents($request->image_name));
+            // $request->image_name->storeAs('voucher_images',$imageName,'public');
 
             // return Inertia::render("/dashboard");
             return redirect(route('voucher.index'));

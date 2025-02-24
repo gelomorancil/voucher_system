@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('voucher_name');
             $table->string('voucher_description');
+            $table->string('image_name')->nullable();
             $table->timestamps();
             $table->integer('active')->default('1');
         });

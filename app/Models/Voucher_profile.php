@@ -13,6 +13,7 @@ class Voucher_profile extends Model
     protected $table = 'tbl_voucher_profiles';
     protected $fillable = [
         'voucher_name',
-        'voucher_description'
+        'voucher_description',
+        'image_name'
     ];
 }

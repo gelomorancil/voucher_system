@@ -6,6 +6,7 @@ import Create from "./Create";
 import EditVoucherProfileForm from "./Partials/EditVoucherProfileForm";
 
 const Index = ({ all_voucher_profiles }) => {
+    console.log(all_voucher_profiles)
     return (
         <>
             <AuthenticatedLayout
@@ -25,6 +26,7 @@ const Index = ({ all_voucher_profiles }) => {
                             <thead>
                                 <tr className="bg-gray-200 text-left">
                                     <th className="px-4 py-2 border">ID</th>
+                                    <th className="px-4 py-2 border">Image</th>
                                     <th className="px-4 py-2 border">
                                         Voucher Name
                                     </th>
@@ -39,6 +41,11 @@ const Index = ({ all_voucher_profiles }) => {
                                     <tr key={voucher.id} className="border-t">
                                         <td className="px-4 py-2">
                                             {voucher.id}
+                                        </td>
+                                        <td className="px-4 py-2">
+                                        {/* <img src="{{ asset('storage/voucher_images/' . $voucher->image_name) }}" alt="Voucher Image" /> */}
+                                        <img src={`http://127.0.0.1:8000/storage/${voucher.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover"/>
+
                                         </td>
                                         <td className="px-4 py-2">
                                             {voucher.voucher_name}
