@@ -70,11 +70,15 @@ class VoucherProfileController extends Controller
                 'image_name' => $imageName,
             ]);
 
-            Storage::disk('public')->put($imageName, file_get_contents($request->image_name));
+            // Storage::disk('public')->put($imageName, file_get_contents($request->image_name));
+            // Storage::disk('public')->put("uploads/{$imageName}", file_get_contents($request->image_name));
+            Storage::disk('public')->put("uploads/{$imageName}", file_get_contents($request->image_name));
+
+
             // $request->image_name->storeAs('voucher_images',$imageName,'public');
 
             // return Inertia::render("/dashboard");
-            return redirect(route('voucher.index'));
+            return redirect(route('voucher.index')); 
         } catch (\Exception $e) {
             return redirect(route('voucher.create'))->with('error', $e->getMessage());
         }

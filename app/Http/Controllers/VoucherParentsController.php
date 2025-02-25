@@ -74,7 +74,7 @@ class VoucherParentsController extends Controller
                 // Create the Voucher_child
                 Voucher_child::create([
                     'voucher_parent_id' => $new_parent->id,
-                    'control_no' => $controlNo,
+                    'control_no' => $controlNo, 
                 ]);
             }
             

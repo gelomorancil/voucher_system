@@ -44,7 +44,16 @@ const Index = ({ all_voucher_profiles }) => {
                                         </td>
                                         <td className="px-4 py-2">
                                         {/* <img src="{{ asset('storage/voucher_images/' . $voucher->image_name) }}" alt="Voucher Image" /> */}
-                                        <img src={`http://127.0.0.1:8000/storage/${voucher.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover"/>
+                                        {/* <img src={`storage\app/public/uploads/${voucher.imageName}`} alt="Voucher Image" className="h-20 w-20 object-cover"/> */}
+                                        {/* <img src={`/storage/${voucher.image_name}`}  alt="Voucher Image" className="h-20 w-20 object-cover"/> */}
+                                        {/* <img src={`/storage/uploads/${voucher.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover" /> */}
+                                        {/* <img src={`http://127.0.0.1:8000/storage/uploads/${voucher.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover"/> */}
+                                        {/* <img src={`/storage/uploads/${voucher.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover"/> */}
+                                        {/* <img src={`http://127.0.0.1:8000/storage/uploads/{image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover"/> */}
+                                        {/* <img src={`http://127.0.0.1:8000/storage/uploads/${voucher.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover"/> */}
+                                        <img src={`/storage/uploads/${voucher.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover" />
+                                        {/* <p>{voucher.image_name}</p> */}
+
 
                                         </td>
                                         <td className="px-4 py-2">

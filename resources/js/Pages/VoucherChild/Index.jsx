@@ -10,8 +10,9 @@ const Index = ({ voucher_child, profile, parent }) => {
                     return (
                         <div
                             key={child.id}
-                            className="bg-gray-100 border border-gray-300 p-4 h-[2in] w-full "
+                            className="border border-gray-300 p-2 h-[2in] w-[3in] bg-yellow-300"
                         >
+                             <img src={`http://127.0.0.1:8000/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover"/>
                             <p>{child.id}</p>
                             <p>
                                 {
@@ -26,6 +27,11 @@ const Index = ({ voucher_child, profile, parent }) => {
                                 }
                             </p>
                             {/* <h1>{child.control_no}</h1> */}
+                            <div className="libre-barcode-128-regular">
+                                {
+                                    child.control_no
+                                }
+                            </div>
                         </div>
                     );
                 })}
