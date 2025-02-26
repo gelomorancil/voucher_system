@@ -15,18 +15,68 @@ class VoucherParentsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+//     public function index()
+// {
+//     $all_voucher_profiles = Voucher_profile::all();
+//     $voucher_parent = Voucher_parents::with('voucher_profile')->get();
+
+//     return Inertia::render('VoucherParents/Index', [
+//         'voucher_parents' => $voucher_parent,
+//         'all_voucher_profiles' => $all_voucher_profiles,
+//         'success' => session('success'),
+//         'error' => session('error'),
+//     ]);
+// }
+
+public function index()
 {
     $all_voucher_profiles = Voucher_profile::all();
-    $voucher_parent = Voucher_parents::with('voucher_profile')->get();
+
+    $voucher_parents = Voucher_parents::with('voucher_profile')
+        ->withCount([
+            'voucher_children as buy_count' => function ($query) {
+                $query->where('buy', 1); 
+            },
+            'voucher_children as claimed_count' => function ($query) {
+                $query->where('claim', 1);
+            },
+            'voucher_children as not_bought_or_claimed_count' => function ($query) {
+                $query->where('buy', 0)->where('claim', 0);
+            }
+        ])
+        ->get();
 
     return Inertia::render('VoucherParents/Index', [
-        'voucher_parents' => $voucher_parent,
+        'voucher_parents' => $voucher_parents,
         'all_voucher_profiles' => $all_voucher_profiles,
         'success' => session('success'),
         'error' => session('error'),
     ]);
 }
+
+
+public function countAll()
+{
+    // Count total voucher children
+    $total = Voucher_child::count();
+
+    // Count vouchers where buy = 1
+    $total_buy = Voucher_child::where('buy', 1)->count();
+
+    // Count vouchers where claim = 1
+    $total_claimed = Voucher_child::where('claim', 1)->count();
+
+    // Count vouchers where buy = 0 and claim = 0
+    $not_bought_or_claimed = Voucher_child::where('buy', 0)->where('claim', 0)->count();
+
+    return response()->json([
+        'total' => $total,
+        'total_buy' => $total_buy,
+        'total_claimed' => $total_claimed,
+        'not_bought_or_claimed' => $not_bought_or_claimed,
+    ]);
+}
+
 
 
 

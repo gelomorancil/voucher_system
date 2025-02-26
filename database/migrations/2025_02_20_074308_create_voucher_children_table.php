@@ -16,12 +16,14 @@ return new class extends Migration
             $table->integer('voucher_parent_id');
             $table->string('control_no')->nullable(true);
             $table->timestamps();
+            $table->integer('buy')->default('0');
+            $table->integer('claim')->default('0');
         });
     }
 
     /**
      * Reverse the migrations.
-     */
+     */ 
     public function down(): void
     {
         Schema::dropIfExists('voucher_children');

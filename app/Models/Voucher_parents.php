@@ -21,4 +21,9 @@ class Voucher_parents extends Model
     public function voucher_profile(){
         return $this->belongsTo(Voucher_profile::class, 'voucher_id');
     }
+    
+    public function voucher_children()
+    {
+        return $this->hasMany(Voucher_child::class, 'voucher_parent_id', 'id'); // Ensure foreign keys match DB schema
+    }
 }

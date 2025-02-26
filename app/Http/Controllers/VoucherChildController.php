@@ -16,15 +16,26 @@ class VoucherChildController extends Controller
      */
     public function index()
     {
-        //
+        // Eager load parents and profiles for each child
+        $child = Voucher_child::with(['voucher_parent.voucher_profile'])->paginate(100);
+
+        return Inertia::render('VoucherChild/Index', [
+            'child' => $child
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function count($id)
     {
         //
+        $voucher_child = Voucher_child::with(['voucher_parent'])->where('voucher_parent_id', $id)->get();
+        return Inertia::render('VoucherChild/Partials/VoucherChildPrintPreview', [
+            'voucher_child' => $voucher_child,
+            // 'profile' => $voucher_profile,
+            // 'parent' => $voucher_parents,
+        ]);
     }
 
     /**
@@ -46,7 +57,7 @@ class VoucherChildController extends Controller
         // $voucher_parents = Voucher_parents::all();
         // $voucher_child = Voucher_child::where('voucher_parent_id', $id)->get();
         // $voucher_child = Voucher_child::findAll();
-        return Inertia::render('VoucherChild/Index',[
+        return Inertia::render('VoucherChild/Partials/VoucherChildPrintPreview', [
             'voucher_child' => $voucher_child,
             // 'profile' => $voucher_profile,
             // 'parent' => $voucher_parents,

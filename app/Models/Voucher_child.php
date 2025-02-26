@@ -14,7 +14,9 @@ class Voucher_child extends Model
 
     protected $fillable=[
         'voucher_parent_id',
-        'control_no'
+        'control_no',
+        'buy',
+        'claim'
     ];
 
     public function voucher_parent(){

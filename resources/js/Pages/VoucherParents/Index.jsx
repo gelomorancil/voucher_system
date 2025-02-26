@@ -19,6 +19,30 @@ const Index = ({ all_voucher_profiles, voucher_parents, success, error }) => {
             >
                 <Head title="Dashboard" />
                 <div className="py-12 px-60">
+                    <div className="mx-auto sm:px-6 lg:px-8 flex gap-10 justify-between max-w-7xl my-4">
+                        <div className="card w-full h-20 bg-yellow-200">
+                            Total Quantity
+                        </div>
+                        <div className="card w-full h-20 bg-yellow-200">
+                            Total Bought Total Not Bought
+                        </div>
+                        <div className="card w-full h-20 bg-yellow-200">
+                            Total Claimed
+                        </div>
+                    </div>
+                    <div className="mx-auto sm:px-6 lg:px-8 flex gap-10 justify-between max-w-7xl my-4">
+                        <TextInput
+                            id="qty"
+                            name="qty"
+                            type="text"
+                            // value={data.qty}
+                            isFocused={true}
+                            className="mt-1 block w-full"
+                            // onChange={(e) => setData("qty", e.target.value)}
+                        />
+                        <button>Bought</button>
+                        <button>Claimed</button>
+                    </div>
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                         <div className="bg-white shadow-sm sm:rounded-lg p-4">
                             <div className="w-full">
@@ -52,6 +76,12 @@ const Index = ({ all_voucher_profiles, voucher_parents, success, error }) => {
                                             <th className="px-4 py-2 border">
                                                 Quantity
                                             </th>
+                                            <th className="px-4 py-2 border">
+                                                Bought
+                                            </th>
+                                            <th className="px-4 py-2 border">
+                                                Claimed
+                                            </th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -80,12 +110,39 @@ const Index = ({ all_voucher_profiles, voucher_parents, success, error }) => {
                                                 <td className="px-4 py-2">
                                                     {parent.qty}
                                                 </td>
+                                                <td className="px-4 py-2">
+                                                    {parent.buy_count}
+                                                </td>
+                                                <td className="px-4 py-2">
+                                                    {parent.claimed_count}
+                                                </td>
                                                 <td className="py-2 hover:cursor-pointer">
                                                     <div className="flex">
                                                         {/* FOR EDIT */}
-                                                        <Link href={route('child.show',parent.id)} className="p-4 bg-yellow-50">Print</Link>
-                                                        
-                                                        <EditVoucherParentForm voucher_parents={parent} voucher_profiles={all_voucher_profiles}/>
+                                                        {/* <Link href={route('child.show',parent.id)} className="p-4 bg-yellow-50">Print</Link> */}
+                                                        <button
+                                                            onClick={() =>
+                                                                window.open(
+                                                                    route(
+                                                                        "child.show",
+                                                                        parent.id
+                                                                    ),
+                                                                    "_blank"
+                                                                )
+                                                            }
+                                                            className="p-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                                                        >
+                                                            Print
+                                                        </button>
+
+                                                        <EditVoucherParentForm
+                                                            voucher_parents={
+                                                                parent
+                                                            }
+                                                            voucher_profiles={
+                                                                all_voucher_profiles
+                                                            }
+                                                        />
 
                                                         {/* DELETE BUTTON SHEESHKEBABERS */}
                                                         {/* <DeleteVoucherProfileForm id={voucher.id}/> */}
@@ -98,89 +155,6 @@ const Index = ({ all_voucher_profiles, voucher_parents, success, error }) => {
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="px-60">
-                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        <div className="bg-white shadow-sm sm:rounded-lg p-4">
-                            <h1>New Parent Voucher Form</h1>
-                            <div className="flex gap-2">
-                                {" "}
-                                {/* Set gap to 8 for more spacing between form and table */}
-                                {/* Form Section */}
-                                <form
-                                    action=""
-                                    className="w-1/3 bg-yellow-200 p-4"
-                                >
-                                    {" "}
-                                    {/* Reduced width of form */}
-                                    <InputLabel
-                                        htmlFor="voucher_description"
-                                        value="Voucher Description"
-                                    />
-                                    <TextInput
-                                        id="voucher_description"
-                                        name="voucher_description"
-                                        // value={data.voucher_description}
-                                        isFocused={true}
-                                        className="mt-1 block w-full"
-                                        // onChange={(e) =>
-                                        //     setData(
-                                        //         "voucher_description",
-                                        //         e.target.value
-                                        //     )
-                                        // }
-                                    />
-                                </form>
-                                {/* Table Section */}
-                                <div className="w-2/3 bg-green-200">
-                                    {" "}
-                                    {/* Increased width for table */}
-                                    <table className="w-full table-auto border-collapse">
-                                        <thead>
-                                            <tr className="bg-gray-200 text-left">
-                                                <th className="px-4 py-2 border">
-                                                    ID
-                                                </th>
-                                                <th className="px-4 py-2 border">
-                                                    Voucher Name
-                                                </th>
-                                                <th className="px-4 py-2 border">
-                                                    Description
-                                                </th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {voucher_parents.map((parent) => (
-                                                <tr
-                                                    key={parent.id}
-                                                    className="border-t"
-                                                >
-                                                    <td className="px-4 py-2">
-                                                        {parent.id}
-                                                    </td>
-                                                    <td className="px-4 py-2">
-                                                        {parent.id}
-                                                    </td>
-                                                    <td className="px-4 py-2">
-                                                        {parent.qty}
-                                                    </td>
-                                                    <td className="py-2 hover:cursor-pointer">
-                                                        <div className="flex">
-                                                            {/* DELETE BUTTON */}
-                                                            <DeleteVoucherParentForm
-                                                                id={parent.id}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>

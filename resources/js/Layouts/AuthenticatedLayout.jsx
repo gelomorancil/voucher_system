@@ -42,6 +42,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Voucher Parents
                                 </NavLink>
+                                <NavLink
+                                    href={route('child.index')}
+                                    active={route().current('child.index')}
+                                >
+                                    Voucher Children
+                                </NavLink>
                             </div>
                         </div>
 

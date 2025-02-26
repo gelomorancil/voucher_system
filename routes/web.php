@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
 
     // VOUCHER CHILD
     // Route::get('/parent/voucher/${id}/preview', [VoucherChildController::class, 'index'])->name('child.index');
+    Route::get('/child/voucher/list', [VoucherChildController::class, 'index'])->name('child.index');
     Route::get('/parent/voucher/print/{id}/preview', [VoucherChildController::class, 'show'])->name('child.show');
 });
 

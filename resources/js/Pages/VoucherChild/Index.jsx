@@ -1,41 +1,62 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import React from "react";
+import React, { useEffect } from "react";
 import { Head } from "@inertiajs/react";
 
-const Index = ({ voucher_child, profile, parent }) => {
+const Index = ({ child}) => {
+    console.log(child)
     return (
         <>
-            <div className="print-view">
-                {voucher_child.map((child) => {
-                    return (
-                        <div
-                            key={child.id}
-                            className="border border-gray-300 p-2 h-[2in] w-[3in] bg-yellow-300"
-                        >
-                             <img src={`http://127.0.0.1:8000/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-20 w-20 object-cover"/>
-                            <p>{child.id}</p>
-                            <p>
-                                {
-                                    child.voucher_parent.voucher_profile
-                                        .voucher_description
-                                }
-                            </p>
-                            <p>
-                                {
-                                    child.voucher_parent.voucher_profile
-                                        .voucher_name
-                                }
-                            </p>
-                            {/* <h1>{child.control_no}</h1> */}
-                            <div className="libre-barcode-128-regular">
-                                {
-                                    child.control_no
-                                }
-                            </div>
-                        </div>
-                    );
-                })}
+            <AuthenticatedLayout
+                header={
+                    <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                        Dashboard/Parent/Child/List
+                    </h2>
+                }
+            >
+            <Head title="Dashboard" />
+            <div className="py-12 px-60">
+                <div className="w-full shadow-md bg-white">
+                <table className="min-w-full table-fixed border-collapse">
+                    <thead>
+                        <tr className="bg-gray-200">
+                            <th className="border px-4 py-2">ID</th>
+                            <th className="border px-4 py-2">Voucher Name</th>
+                            <th className="border px-4 py-2">Description</th>
+                            <th className="border px-4 py-2">Control No</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {child.data.map((child) => (
+                            <tr key={child.id} className="border">
+                                <td className="border px-4 py-2 text-center">
+                                    {child.id}
+                                </td>
+                                <td className="border px-4 py-2">
+                                    {
+                                        child.voucher_parent.voucher_profile
+                                            .voucher_name
+                                    }
+                                </td>
+                                <td className="border px-4 py-2">
+                                    {
+                                        child.voucher_parent.voucher_profile
+                                            .voucher_description
+                                    }
+                                </td>
+                                <td className="border px-4 py-2">
+                                {child.control_no}
+                                </td>
+                                <td className="text-9xlborder px-4 py-2 libre-barcode-128-regular text-center">
+                                    {child.control_no}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                </div>
             </div>
+            </AuthenticatedLayout>
         </>
     );
 };
