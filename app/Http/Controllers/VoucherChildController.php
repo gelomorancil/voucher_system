@@ -75,6 +75,63 @@ class VoucherChildController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    public function updateBuy(Request $request)
+    {
+        $request->validate([
+            'control_no' => 'required|integer',
+        ]);
+
+        $voucher = Voucher_child::where('control_no', $request->control_no)->first();
+
+        if (!$voucher) {
+            return redirect(route('parent.index'))->with('error', 'Voucher does not exist!');
+        }
+
+        if ($voucher->buy == 1 || $voucher->claim == 1) {
+            return redirect(route('parent.index'))->with('error', 'Voucher is already been used!');
+        }
+
+        try {
+            $voucher->update([
+                'buy' => 1,
+                'claim' => 0,
+            ]);
+            
+            return redirect(route('parent.index'))->with('success', 'Voucher successfully bought.');
+        } catch (\Exception $e) {
+            return redirect(route('parent.index'))->with('error', 'Uh oh, something went wrong.');
+        }
+    }
+    
+    public function updateClaim(Request $request)
+    {
+        $request->validate([
+            'control_no' => 'required|integer',
+        ]);
+
+        $voucher = Voucher_child::where('control_no', $request->control_no)->first();
+
+        if (!$voucher) {
+            return redirect(route('parent.index'))->with('error', 'Voucher does not exist!');
+        }
+
+        if ($voucher->buy == 1 || $voucher->claim == 1) {
+            return redirect(route('parent.index'))->with('error', 'Voucher is already been used!');
+        }
+
+        try {
+            $voucher->update([
+                'buy' => 0,
+                'claim' => 1,
+            ]);
+
+            return redirect(route('parent.index'))->with('success', 'Voucher successfully claimed.');
+        } catch (\Exception $e) {
+            return redirect(route('parent.index'))->with('error', 'Uh oh, something went wrong.');
+        }
+    }
+
+
     public function update(Request $request, Voucher_child $voucher_child)
     {
         //

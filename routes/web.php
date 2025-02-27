@@ -30,12 +30,16 @@ Route::middleware('auth')->group(function () {
     // VOUCHER PROFILE ROUTES
     // DISPLAY ALL VOUCHER PROFILE
     Route::get('/voucher/list', [VoucherProfileController::class, 'index'])->name('voucher.index');
+    Route::post('/voucher/list/update-buy', [VoucherChildController::class, 'updateBuy'])->name('child.updateBuy');
+    Route::post('/voucher/list/update-claim', [VoucherChildController::class, 'updateClaim'])->name('child.updateClaim');
+
     // CREATE VOUCHER
     Route::get('/voucher/create', [VoucherProfileController::class, 'create'])->name('voucher.create');
     Route::post('/voucher/store', [VoucherProfileController::class, 'store'])->name('voucher.store');
+    
     // EDIT VOUCHER PROFILE
-    // Route::get('/voucher/edit/{id}', [VoucherProfileController::class, 'edit'])->name('voucher.edit');
     Route::patch('/voucher/edit/{id}', [VoucherProfileController::class, 'update'])->name('voucher.update');
+
     // HARD DELETE KAY NA TAMAD NAKO MAG UBRA DANAY SA SOFT DELETE
     Route::delete('/voucher/delete/{id}', [VoucherProfileController::class, 'destroy'])->name('voucher.destroy');
 
@@ -43,9 +47,11 @@ Route::middleware('auth')->group(function () {
     // VOUCHER PARENTS ROUTES
     // DISPLAY ALL VOUCHER PARENT
     Route::get('/parent/voucher/list', [VoucherParentsController::class, 'index'])->name('parent.index');
+    
     // CREATE VOUCHER
     Route::get('/parent/voucher/create', [VoucherParentsController::class, 'create'])->name('parent.create');
     Route::post('/parent/voucher/store', [VoucherParentsController::class, 'store'])->name('parent.store');
+    
     // EDIT VOUCHER PARENTS
     Route::get('/parent/voucher/edit/{id}', [VoucherParentsController::class, 'edit'])->name('parent.edit');
     Route::patch('/parent/voucher/edit/{id}', [VoucherParentsController::class, 'update'])->name('parent.update');
@@ -53,7 +59,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/parent/voucher/delete/{id}', [VoucherParentsController::class, 'destroy'])->name('parent.destroy');
 
     // VOUCHER CHILD
-    // Route::get('/parent/voucher/${id}/preview', [VoucherChildController::class, 'index'])->name('child.index');
     Route::get('/child/voucher/list', [VoucherChildController::class, 'index'])->name('child.index');
     Route::get('/parent/voucher/print/{id}/preview', [VoucherChildController::class, 'show'])->name('child.show');
 });
