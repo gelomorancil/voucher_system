@@ -16,13 +16,17 @@ class VoucherParentsController extends Controller
     {
         // PARA NADI SA COUNT GIN COMBINE KO NALANG MGA THINGYS IDK IF IT WILL WORK BUT YEA
         // Count total voucher children
+        $user = auth()->user();
         $total = Voucher_child::count();
         $bought = Voucher_child::where('buy', 1)->count();
         $claimed = Voucher_child::where('claim', 1)->count();
         $not_bought = Voucher_child::where('buy', 0)->where('claim', 0)->count();
-        $all_voucher_profiles = Voucher_profile::all();
+        $all_voucher_profiles = Voucher_profile::where('active', 1)
+            ->where('uid', $user->id)
+            ->get();
 
-        $voucher_parents = Voucher_parents::with('voucher_profile')
+        $voucher_parents = Voucher_parents::where('active', 1)
+            ->with('voucher_profile')
             ->withCount([
                 'voucher_children as buy_count' => function ($query) {
                     $query->where('buy', 1);
@@ -138,6 +142,8 @@ class VoucherParentsController extends Controller
     public function destroy($id)
     {
         //
-        Voucher_parents::where('id', $id)->delete();
+        Voucher_parents::where('id', $id)->update(['active' => 0]);
+        return redirect(route('parent.index'))->with('error', 'Voucher deleted.');
+
     }
 }

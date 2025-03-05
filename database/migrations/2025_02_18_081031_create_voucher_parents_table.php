@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->timestamps();
             $table->integer('active')->default('1');
+            $table->integer('uid');
         });
     }
 

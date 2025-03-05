@@ -94,7 +94,7 @@ class VoucherChildController extends Controller
         try {
             $voucher->update([
                 'buy' => 1,
-                'claim' => 0,
+                // 'claim' => 0,
             ]);
             
             return redirect(route('parent.index'))->with('success', 'Voucher successfully bought.');
@@ -115,13 +115,13 @@ class VoucherChildController extends Controller
             return redirect(route('parent.index'))->with('error', 'Voucher does not exist!');
         }
 
-        if ($voucher->buy == 1 || $voucher->claim == 1) {
-            return redirect(route('parent.index'))->with('error', 'Voucher is already been used!');
+        if ($voucher->buy == 0 || $voucher->claim == 1) {
+            return redirect(route('parent.index'))->with('error', "Voucher hasn't been bought yet ");
         }
 
         try {
             $voucher->update([
-                'buy' => 0,
+                // 'buy' => 0,
                 'claim' => 1,
             ]);
 

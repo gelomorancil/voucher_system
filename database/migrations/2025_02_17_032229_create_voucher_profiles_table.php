@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image_name')->nullable();
             $table->timestamps();
             $table->integer('active')->default('1');
+            $table->integer('uid');
         });
     }   
 

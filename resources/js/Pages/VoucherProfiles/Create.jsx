@@ -10,12 +10,13 @@ import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextArea from '@/Components/TextArea';
 
-const Create = () => {
+const Create = ({uid}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         voucher_name: "",
         voucher_description: "",
         image_name: "",
+        // uid:uid
     });
 
     const onSubmit = (e) => {
@@ -98,7 +99,6 @@ const Create = () => {
                             id="voucher_description"
                             name="voucher_description"
                             value={data.voucher_description}
-                            isFocused={true}
                             className="mt-1 block w-full"
                             onChange={(e) =>
                                 setData("voucher_description", e.target.value)

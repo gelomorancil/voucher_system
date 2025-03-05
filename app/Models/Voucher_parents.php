@@ -15,7 +15,8 @@ class Voucher_parents extends Model
 
     protected $fillable = [
         'voucher_id',
-        'qty'
+        'qty',
+        'uid'
     ];
 
     public function voucher_profile(){

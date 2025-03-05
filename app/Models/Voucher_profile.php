@@ -14,6 +14,7 @@ class Voucher_profile extends Model
     protected $fillable = [
         'voucher_name',
         'voucher_description',
-        'image_name'
+        'image_name',
+        'uid'
     ];
 }

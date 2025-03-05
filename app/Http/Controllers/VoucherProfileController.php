@@ -16,29 +16,20 @@ class VoucherProfileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id = null)
-    {
-        // If an ID is provided, find the specific voucher profile
-        if ($id) {
-            $voucher_profile = Voucher_profile::find($id);
+    // public function index($id = null)
+    public function index()
+{ 
+    // dd(auth()->users());
+    $user = auth()->user();
+    $all_voucher_profiles = Voucher_profile::where('active', 1)
+        ->where('uid', $user->id)
+        ->get();
 
-            if (!$voucher_profile) {
-                return redirect()->route('voucher.index')->with('error', 'Voucher not found');
-            }
+    return Inertia::render("VoucherProfiles/Index", [
+        'all_voucher_profiles' => $all_voucher_profiles
+    ]);
+}
 
-            // Return the 'Edit' view with the found voucher_profile
-            return Inertia::render("VoucherProfiles/Edit", [
-                'voucher_profile' => $voucher_profile
-            ]);
-        }
-
-        // If no ID is provided, return the 'Index' view with all voucher profiles
-        $all_voucher_profiles = Voucher_profile::all();
-
-        return Inertia::render("VoucherProfiles/Index", [
-            'all_voucher_profiles' => $all_voucher_profiles
-        ]);
-    }
 
 
     /**
@@ -54,35 +45,36 @@ class VoucherProfileController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-        $request->validate([
-            'voucher_name' => 'required | string',
-            'voucher_description' => 'required | string',
-            'image_name' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+{
+    $request->validate([
+        'voucher_name' => 'required|string',
+        'voucher_description' => 'required|string',
+        'uid' => 'nullable',
+        'image_name' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    try {
+        $imageName = null;
+
+        if ($request->hasFile('image_name')) {
+            $imageName = Str::random(32) . "." . $request->image_name->getClientOriginalExtension();
+            Storage::disk('public')->put("uploads/{$imageName}", file_get_contents($request->image_name));
+        }
+
+        Voucher_profile::create([
+            'voucher_name' => $request->voucher_name,
+            'voucher_description' => $request->voucher_description,
+            // 'uid' => $request->uid,
+            'uid' => auth()->id(),
+            'image_name' => $imageName,
         ]);
 
-        $imageName = Str::random(32). "." .$request->image_name->getClientOriginalExtension();
-        try {
-            Voucher_profile::create([
-                'voucher_name' => $request->voucher_name,
-                'voucher_description' => $request->voucher_description,
-                'image_name' => $imageName,
-            ]);
-
-            // Storage::disk('public')->put($imageName, file_get_contents($request->image_name));
-            // Storage::disk('public')->put("uploads/{$imageName}", file_get_contents($request->image_name));
-            Storage::disk('public')->put("uploads/{$imageName}", file_get_contents($request->image_name));
-
-
-            // $request->image_name->storeAs('voucher_images',$imageName,'public');
-
-            // return Inertia::render("/dashboard");
-            return redirect(route('voucher.index')); 
-        } catch (\Exception $e) {
-            return redirect(route('voucher.create'))->with('error', $e->getMessage());
-        }
+        return redirect(route('voucher.index'))->with('success', 'Voucher Profile created successfully!');
+    } catch (\Exception $e) {
+        return redirect(route('voucher.index'))->with('error', 'Something went wrong: ' . $e->getMessage());
     }
+}
+
 
     /**
      * Display the specified resource.
@@ -144,6 +136,6 @@ class VoucherProfileController extends Controller
     public function destroy($id)
     {
         //
-        Voucher_profile::where('id', $id)->delete();
+        Voucher_profile::where('id', $id)->update(['active'=> 0]);
     }
 }
