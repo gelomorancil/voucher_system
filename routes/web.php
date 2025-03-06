@@ -60,7 +60,10 @@ Route::middleware('auth')->group(function () {
 
     // VOUCHER CHILD
     Route::get('/child/voucher/list', [VoucherChildController::class, 'index'])->name('child.index');
-    Route::get('/parent/voucher/print/{id}/preview', [VoucherChildController::class, 'show'])->name('child.show');
+    // Route::get('/parent/voucher/print/{id}/preview', [VoucherChildController::class, 'show'])->name('child.show');
+
+    // MOST USED FUNCTIONS HEEHE
+    Route::get('/voucher/print/{id}/preview', [VoucherChildController::class, 'show'])->name('voucher.show');
 });
 
 

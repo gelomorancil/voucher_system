@@ -69,9 +69,9 @@ class VoucherProfileController extends Controller
             'image_name' => $imageName,
         ]);
 
-        return redirect(route('voucher.index'))->with('success', 'Voucher Profile created successfully!');
+        return redirect(route('parent.index'))->with('success', 'Voucher Profile created successfully!');
     } catch (\Exception $e) {
-        return redirect(route('voucher.index'))->with('error', 'Something went wrong: ' . $e->getMessage());
+        return redirect(route('parent.index'))->with('error', 'Something went wrong: ' . $e->getMessage());
     }
 }
 
@@ -120,10 +120,10 @@ class VoucherProfileController extends Controller
             //     'voucher_profile' => Voucher_profile::find($id),
             //     'success' => 'Voucher updated successfully!'
             // ]);
-            return redirect(route('voucher.index'));
+            return redirect(route('parent.index'));
         } catch (\Exception $e) {
             // DIRI ANG ERROR NAMAN PARA MA BAL AN NILA ANO ANG PROBLEMA ANA DIRI
-            return Inertia::render('VoucherProfiles/Edit', [
+            return Inertia::render('Voucher/Index', [
                 'voucher_profile' => null,
                 'error' => $e->getMessage()
             ]);

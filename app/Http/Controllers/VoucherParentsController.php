@@ -7,7 +7,6 @@ use App\Models\Voucher_profile;
 use App\Models\Voucher_child;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use Inertia\Inertia;
 
 class VoucherParentsController extends Controller
@@ -21,11 +20,11 @@ class VoucherParentsController extends Controller
         $bought = Voucher_child::where('buy', 1)->count();
         $claimed = Voucher_child::where('claim', 1)->count();
         $not_bought = Voucher_child::where('buy', 0)->where('claim', 0)->count();
-        $all_voucher_profiles = Voucher_profile::where('active', 1)
+        $profile = Voucher_profile::where('active', 1)
             ->where('uid', $user->id)
             ->get();
 
-        $voucher_parents = Voucher_parents::where('active', 1)
+        $parent = Voucher_parents::where('active', 1)
             ->with('voucher_profile')
             ->withCount([
                 'voucher_children as buy_count' => function ($query) {
@@ -40,9 +39,9 @@ class VoucherParentsController extends Controller
             ])
             ->get();
 
-        return Inertia::render('VoucherParents/Index', [
-            'voucher_parents' => $voucher_parents,
-            'all_voucher_profiles' => $all_voucher_profiles,
+        return Inertia::render('Voucher/Index', [
+            'parent' => $parent,
+            'profile' => $profile,
             'success' => session('success'),
             'error' => session('error'),
             'total' => $total,
@@ -65,29 +64,32 @@ class VoucherParentsController extends Controller
         //
         $request->validate([
             'voucher_id' => 'required | int',
-            'qty' => 'required | int'
+            'qty' => 'required | int',
+            'uid' => 'nullable',
         ]);
+
         try {
 
             $new_parent = Voucher_parents::create([
                 'voucher_id' => $request->voucher_id,
-                'qty' => $request->qty
+                'qty' => $request->qty,
+                'uid' => auth()->id(),
             ]);
-
+            
+            // Generate the child by getting the last id of the parent the creating of control no sa babaw. 
             for ($i = 0; $i < $request->qty; $i++) {
                 $currentDate = now()->format('Ymd');
-                $controlNo = $currentDate . $new_parent->id . str_pad($i + 1, 2, '0', STR_PAD_LEFT);
-
-                // Create the Voucher_child
+                $controlNo = $currentDate . $new_parent->id . str_pad($i + 1, 6, '0', STR_PAD_LEFT);
                 Voucher_child::create([
                     'voucher_parent_id' => $new_parent->id,
                     'control_no' => $controlNo,
                 ]);
             }
 
-            return redirect(route('parent.index'))->with('success', 'i miss you');
+            return redirect(route('parent.index'))->with('success', 'Voucher Generated');
         } catch (\Exception $e) {
-            return redirect(route('parent.index'))->with('error', 'i miss you');
+            return redirect(route('parent.index'))->with('error', 'Something went wrong: ' . $e->getMessage());
+
         }
     }
 
@@ -141,9 +143,10 @@ class VoucherParentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // SOFT DELETE UPDATES THE ACTIVE INTO 0, SO IT WILL NOT DISPLAY ANYTHING
         Voucher_parents::where('id', $id)->update(['active' => 0]);
+        // i'll remove this is if the child shouldn't be deleted my guy.
+        Voucher_child::where('voucher_parent_id', $id)->delete();
         return redirect(route('parent.index'))->with('error', 'Voucher deleted.');
-
     }
 }
