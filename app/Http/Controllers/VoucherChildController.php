@@ -57,7 +57,8 @@ class VoucherChildController extends Controller
         // $voucher_parents = Voucher_parents::all();
         // $voucher_child = Voucher_child::where('voucher_parent_id', $id)->get();
         // $voucher_child = Voucher_child::findAll();
-        return Inertia::render('VoucherChild/Partials/VoucherChildPrintPreview', [
+        // return Inertia::render('VoucherChild/Partials/VoucherChildPrintPreview', [
+            return Inertia::render('Voucher/Partials/PrintPreview', [
             'voucher_child' => $voucher_child,
             // 'profile' => $voucher_profile,
             // 'parent' => $voucher_parents,

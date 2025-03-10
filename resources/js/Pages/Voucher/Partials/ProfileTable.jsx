@@ -1,4 +1,6 @@
 import React from "react";
+import ProfileEdit from "./ProfileEdit";
+import ProfileDelete from "./ProfileDelete";
 
 const ProfileTable = ({profile}) => {
     return (
@@ -46,6 +48,9 @@ const ProfileTable = ({profile}) => {
                                         <ProfileEdit
                                             voucher_profile={voucher}
                                         />
+
+                                        {/* <ProfileEdit />
+                                        <ProfileDelete /> */}
 
                                         {/* DELETE BUTTON */}
                                         <ProfileDelete id={voucher.id} />

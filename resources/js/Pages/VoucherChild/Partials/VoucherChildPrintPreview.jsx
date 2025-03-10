@@ -2,13 +2,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect } from "react";
 import { Head } from "@inertiajs/react";
 
-const VoucherChildPrintPreview = ({ voucher_child, profile, parent }) => {
+const VoucherChildPrintPreview = ({ voucher_child }) => {
+
     useEffect(() => {
         const handlePrintClose = () => {
-            window.close(); // Closes the tab only after printing or canceling
+            window.close();
         };
 
-        window.print(); // Opens the print dialog
+        window.print();
         window.addEventListener("afterprint", handlePrintClose);
 
         return () => {
