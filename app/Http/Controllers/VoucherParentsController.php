@@ -17,8 +17,8 @@ class VoucherParentsController extends Controller
         // Count total voucher children
         $user = auth()->user();
         $total = Voucher_child::count();
-        $bought = Voucher_child::where('buy', 1)->count();
-        $claimed = Voucher_child::where('claim', 1)->count();
+        $bought = Voucher_child::where('buy', 1)->where('claim', 0)->count();
+        $claimed = Voucher_child::where('claim', 1)->where('buy', 1)->count();
         $not_bought = Voucher_child::where('buy', 0)->where('claim', 0)->count();
         $profile = Voucher_profile::where('active', 1)
             ->where('uid', $user->id)
@@ -28,10 +28,10 @@ class VoucherParentsController extends Controller
             ->with('voucher_profile')
             ->withCount([
                 'voucher_children as buy_count' => function ($query) {
-                    $query->where('buy', 1);
+                    $query->where('buy', 1)->where('claim', 0);
                 },
                 'voucher_children as claimed_count' => function ($query) {
-                    $query->where('claim', 1);
+                    $query->where('claim', 1)->where('buy', 1);
                 },
                 'voucher_children as not_bought_or_claimed_count' => function ($query) {
                     $query->where('buy', 0)->where('claim', 0);

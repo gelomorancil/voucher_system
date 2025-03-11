@@ -1,26 +1,27 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-const DonutChart = ({ total, bought, claimed, not_bought }) => {
+const DonutChart = ({ total, bought, claimed, not_bought, remaining }) => {
     const chartOptions = {
-        series: [claimed, bought, not_bought],
+        // series: [claimed, remaining, bought, not_bought, ],
+        series: [claimed, remaining, bought, not_bought, ],
         chart: {
             type: "donut",
         },
-        colors: ["#DB48FF", "#8146FF", "#579AFF"],
+        colors: ["#DB48FF", "#FF447C", "#579AFF", "#8146FF", ],
         fill: {
             type: "gradient",
             gradient: {
                 shade: "light",
                 type: "radial",
-                gradientToColors: ["#B621FE", "#5200FF", "#216AFF"],
+                gradientToColors: ["#B621FE", "#D71C54", "#216AFF", "#5200FF",  ],
                 stops: [0, 100],
             },
         },
         plotOptions: {
             pie: {
                 donut: {
-                    size: "65%",
+                    size: "55%",
                     labels: {
                         show: true,
                         name: {
@@ -47,7 +48,7 @@ const DonutChart = ({ total, bought, claimed, not_bought }) => {
                 },
             },
         },
-        labels: ["Claimed", "Purchased", "Unpurchased"],
+        labels: ["Claimed","Remaining", "Purchased", "Unpurchased"],
         legend: {
             position: "right",
             labels: {
@@ -63,9 +64,9 @@ const DonutChart = ({ total, bought, claimed, not_bought }) => {
     };
     
     return (
-        <div className="bg-white shadow-sm border-gray-200 border-1 rounded-xl p-4 w-full flex flex-col items-center">
-            <h2 className="text-2xl font-bold uppercase mb-4">Voucher Distribution</h2>
-            <Chart options={chartOptions} series={chartOptions.series} type="donut" height={500} width={500}/>
+        <div className="bg-white shadow-sm border-gray-200 border-1 rounded-xl p-4 w-5/12">
+            <h2 className="text-2xl font-bold uppercase mb-4 text-left">Voucher Distribution</h2>
+            <Chart options={chartOptions} series={chartOptions.series} type="donut" height={400} width={425}/>
         </div>
     );
 };

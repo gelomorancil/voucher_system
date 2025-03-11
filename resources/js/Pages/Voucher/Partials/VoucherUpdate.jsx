@@ -29,7 +29,7 @@ const VoucherUpdate = () => {
     return (
         <>
        
-        <div className="gap-4 my-4 bg-white p-4 py-6 rounded-lg shadow-md">
+        <div className="gap-4 bg-white p-4 py-6 rounded-lg shadow-sm">
             {/* <form action="" className="flex gap-2 w-full"> */}
             <InputError message={errors.control_no} className="mt-2" />
             <div className="flex justify-between items-center gap-2">

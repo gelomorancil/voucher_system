@@ -47,7 +47,7 @@ const Index = ({ child}) => {
                                 <td className="border px-4 py-2">
                                 {child.control_no}
                                 </td>
-                                <td className="text-9xlborder px-4 py-2 libre-barcode-128-regular text-center">
+                                <td className="border px-4 py-2 libre-barcode-128-regular text-center">
                                     {child.control_no}
                                 </td>
                             </tr>

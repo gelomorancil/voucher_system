@@ -65,13 +65,13 @@ const Index = ({profile, parent, success, error, total, bought, claimed, not_bou
                     </div>
                     {/* END OF NOTIFICATION TOAST */}
                     <VoucherCount total={total} bought={bought} claimed={claimed} not_bought={not_bought} />
-                    <VoucherUpdate />
+                    {/* <VoucherUpdate /> */}
                     <div className="bg-white shadow-sm sm:rounded-lg p-4">
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 justify-end">
                             <ParentCreate voucher_profiles={profile} />
                             <ProfileCreate />
                         </div>
-                        <div className="bg-white shadow-sm sm:rounded-lg p-4">
+                        <div className="bg-white shadow-sm sm:rounded-lg px-4">
                     {/* Tabs Navigation */}
                     <div className="flex border-b">
                         <button
