@@ -17,8 +17,8 @@
     }
 
     .libre-barcode-128-regular {
-        /* font-family: "Libre Barcode 128", serif; */
         font-family: "Libre Barcode 128", serif;
+        /* font-family: "Libre Barcode 128", serif; */
         font-weight: 400;
         font-style: normal;
         font-size: 35px;

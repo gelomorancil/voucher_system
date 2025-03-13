@@ -3,18 +3,18 @@ import React, { useEffect } from "react";
 import { Head } from "@inertiajs/react";
 
 const PrintPreview = ({ voucher_child }) => {
-    useEffect(() => {
-        const handlePrintClose = () => {
-            window.close(); // Closes the tab only after printing or canceling
-        };
+    // useEffect(() => {
+    //     const handlePrintClose = () => {
+    //         window.close(); // Closes the tab only after printing or canceling
+    //     };
 
-        window.print(); // Opens the print dialog
-        window.addEventListener("afterprint", handlePrintClose);
+    //     window.print(); // Opens the print dialog
+    //     window.addEventListener("afterprint", handlePrintClose);
 
-        return () => {
-            window.removeEventListener("afterprint", handlePrintClose);
-        };
-    }, []);
+    //     return () => {
+    //         window.removeEventListener("afterprint", handlePrintClose);
+    //     };
+    // }, []);
     return (
         <>
         <div className="w-full h-screen flex flex-col items-center justify-center bg-gray-100" id="show-design">
@@ -33,11 +33,11 @@ const PrintPreview = ({ voucher_child }) => {
                             <p className="text-mdmax-w-[2in] break-words">
                                 {child.voucher_parent.voucher_profile.voucher_description}
                             </p>
-                            {/* <img src={`/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover" /> */}
+                            <img src={`/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover mt-12" />
                         </div>
                         <div className="bg-white w-2/12 text-gray-700 flex flex-col items-center justify-center text-[10px] text-center font-semibold">
                         <div className="rotate-[270deg] origin-center leading-none">
-                        <span className="libre-barcode-128-regular leading-none">{child.control_no}</span>
+                        <span className="libre-barcode-128-regular">{child.control_no}</span>
                         <p className="leading-none text-[15px]">{child.control_no}</p>
                         </div>
                         </div>
@@ -62,7 +62,7 @@ const PrintPreview = ({ voucher_child }) => {
                             <p className="text-mdmax-w-[2in] break-words">
                                 {child.voucher_parent.voucher_profile.voucher_description}
                             </p>
-                            {/* <img src={`/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover" /> */}
+                            <img src={`/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover mt-12" />
                         </div>
                         <div className="bg-white w-2/12 text-gray-700 flex flex-col items-center justify-center text-[10px] text-center font-semibold">
                         <div className="rotate-[270deg] origin-center leading-none">

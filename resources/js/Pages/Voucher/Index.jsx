@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import ParentCreate from "./Partials/ParentCreate";
@@ -14,28 +14,54 @@ import VoucherUpdate from "./Partials/VoucherUpdate";
 import ParentTable from "./Partials/ParentTable";
 import ProfileTable from "./Partials/ProfileTable";
 
-const Index = ({profile, parent, success, error, total, bought, claimed, not_bought}) => {
-    const [activeTab, setActiveTab] = useState("voucher")
+const Index = ({
+    profile,
+    parent,
+    success,
+    error,
+    total,
+    bought,
+    claimed,
+    not_bought,
+}) => {
+    const [activeTab, setActiveTab] = useState("voucher");
     const [isVisibleSuccess, setIsVisibleSuccess] = useState(true);
     const [isVisibleError, setIsVisibleError] = useState(true);
 
     const handleCloseSuccess = () => {
         setIsVisibleSuccess(false);
+        setTimeout(() => {
+            setIsVisibleSuccess(false);
+        }, 3000);
     };
 
     const handleCloseError = () => {
         setIsVisibleError(false);
+        setTimeout(() => {
+            setIsVisibleError(false);
+        }, 3000);
     };
+
+    // function for request time out sheesh
+
+    const handleShowSuccess = () => {
+        setIsVisibleSuccess(true);
+        setTimeout(() => {
+            setIsVisibleSuccess(false);
+        }, 1000);
+    };
+    
+    const handleShowError = () => {
+        setIsVisibleError(true);
+        setTimeout(() => {
+            setIsVisibleError(false);
+        }, 1000);
+    };
+    
 
     return (
         <>
-            <AuthenticatedLayout
-                header={
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                        Dashboard/Parent/Voucher/List
-                    </h2>
-                }
-            >
+            <AuthenticatedLayout>
                 <Head title="Dashboard" />
                 <div className="py-12 px-60">
                     {/* NOTIFICATION TOAST */}
@@ -64,44 +90,63 @@ const Index = ({profile, parent, success, error, total, bought, claimed, not_bou
                         )}
                     </div>
                     {/* END OF NOTIFICATION TOAST */}
-                    <VoucherCount total={total} bought={bought} claimed={claimed} not_bought={not_bought} />
+                    <VoucherCount
+                        total={total}
+                        bought={bought}
+                        claimed={claimed}
+                        not_bought={not_bought}
+                    />
                     {/* <VoucherUpdate /> */}
                     <div className="bg-white shadow-sm sm:rounded-lg p-4">
-                        <div className="flex gap-2 justify-end">
-                            <ParentCreate voucher_profiles={profile} />
-                            <ProfileCreate />
+                        <div className="flex justify-between items-center px-4">
+                            {activeTab === "voucher" ? (
+                                <h2 className="font-bold text-xl bg-gradient-to-r from-[#8146FF] to-[#DB48FF] text-transparent bg-clip-text">
+                                    Voucher List
+                                </h2>
+                            ) : (
+                                <h2 className="font-bold text-lg bg-gradient-to-r from-[#8146FF] to-[#DB48FF] text-transparent bg-clip-text">
+                                    Profile List
+                                </h2>
+                            )}
+                            <div className="flex gap-2">
+                                <ParentCreate voucher_profiles={profile} />
+                                <ProfileCreate />
+                            </div>
                         </div>
                         <div className="bg-white shadow-sm sm:rounded-lg px-4">
-                    {/* Tabs Navigation */}
-                    <div className="flex border-b">
-                        <button
-                            className={`px-4 py-2 font-medium ${
-                                activeTab === "voucher" ? "border-b-2 border-indigo-800 text-indigo-800" : "text-gray-600"
-                            }`}
-                            onClick={() => setActiveTab("voucher")}
-                        >
-                            Voucher
-                        </button>
-                        <button
-                            className={`px-4 py-2 font-medium ${
-                                activeTab === "details" ? "border-b-2 border-indigo-800 text-indigo-800" : "text-gray-600"
-                            }`}
-                            onClick={() => setActiveTab("details")}
-                        >
-                            Details
-                        </button>
-                    </div>
+                            {/* Tabs Navigation */}
+                            <div className="flex border-b">
+                                <button
+                                    className={`px-4 py-2 font-medium ${
+                                        activeTab === "voucher"
+                                            ? "border-b-2 border-indigo-800 text-indigo-800"
+                                            : "text-gray-600"
+                                    }`}
+                                    onClick={() => setActiveTab("voucher")}
+                                >
+                                    Voucher
+                                </button>
+                                <button
+                                    className={`px-4 py-2 font-medium ${
+                                        activeTab === "details"
+                                            ? "border-b-2 border-indigo-800 text-indigo-800"
+                                            : "text-gray-600"
+                                    }`}
+                                    onClick={() => setActiveTab("details")}
+                                >
+                                    Details
+                                </button>
+                            </div>
 
-                    {/* Tabs Content */}
-                    <div className="mt-4">
-                        {activeTab === "voucher" ? (
-                            <ParentTable parent={parent} />
-                        ) : (
-                            <ProfileTable profile={profile} />
-                        )}
-                    </div>
-                    </div>
-                        
+                            {/* Tabs Content */}
+                            <div className="mt-4">
+                                {activeTab === "voucher" ? (
+                                    <ParentTable parent={parent} />
+                                ) : (
+                                    <ProfileTable profile={profile} />
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </AuthenticatedLayout>

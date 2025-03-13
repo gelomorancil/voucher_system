@@ -65,7 +65,7 @@ const DonutChart = ({ total, bought, claimed, not_bought, remaining }) => {
     
     return (
         <div className="bg-white shadow-sm border-gray-200 border-1 rounded-xl p-4 w-5/12">
-            <h2 className="text-2xl font-bold uppercase mb-4 text-left">Voucher Distribution</h2>
+            <h2 className="text-xl bg-gradient-to-r from-[#8146FF] to-[#DB48FF] text-transparent bg-clip-text mb-4 uppercase text-center">Voucher Distribution</h2>
             <Chart options={chartOptions} series={chartOptions.series} type="donut" height={400} width={425}/>
         </div>
     );

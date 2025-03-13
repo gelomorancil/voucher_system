@@ -32,7 +32,7 @@ const ParentDelete = ({id}) => {
                     onClick={openModal}
                     id="delete"
                     name="delete"
-                    className="icons hover:bg-red-200 w-10 h-10 justify-center items-center flex rounded-md text-red-500"
+                    className="icons border border-gray-100 shadow-sm hover:bg-red-100 w-10 h-10 justify-center items-center flex rounded-md text-red-400"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
