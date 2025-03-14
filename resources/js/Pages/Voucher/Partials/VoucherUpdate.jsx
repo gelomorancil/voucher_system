@@ -4,6 +4,7 @@ import TextInput from "@/Components/TextInput";
 import React from "react";
 import { useForm } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
+import Scanner from "./Scanner";
 
 const VoucherUpdate = () => {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -49,6 +50,7 @@ const VoucherUpdate = () => {
             <div className="flex gap-2">
                 <PrimaryButton onClick={handleBuy} className="px-4 py-2 h-12 mt-6">Bought</PrimaryButton>
                 <SecondaryButton onClick={handleClaim} className="px-4 py-2 h-12 mt-6">Claim</SecondaryButton>
+                <Scanner />
             </div>
             </div>
             {/* </form> */}

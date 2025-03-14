@@ -1,6 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect } from "react";
 import { Head } from "@inertiajs/react";
+import Barcode from "react-barcode";
+
 
 const PrintPreview = ({ voucher_child }) => {
     // useEffect(() => {
@@ -37,8 +39,9 @@ const PrintPreview = ({ voucher_child }) => {
                         </div>
                         <div className="bg-white w-2/12 text-gray-700 flex flex-col items-center justify-center text-[10px] text-center font-semibold">
                         <div className="rotate-[270deg] origin-center leading-none">
-                        <span className="libre-barcode-128-regular">{child.control_no}</span>
-                        <p className="leading-none text-[15px]">{child.control_no}</p>
+                        {/* <span className="libre-barcode-128-regular">{child.control_no}</span> */}
+                        <span><Barcode value={child.control_no} format="CODE128" /></span>
+                        {/* <p className="leading-none text-[15px]">{child.control_no}</p> */}
                         </div>
                         </div>
                     </div>
@@ -65,9 +68,10 @@ const PrintPreview = ({ voucher_child }) => {
                             <img src={`/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover mt-12" />
                         </div>
                         <div className="bg-white w-2/12 text-gray-700 flex flex-col items-center justify-center text-[10px] text-center font-semibold">
-                        <div className="rotate-[270deg] origin-center leading-none">
-                        <span className="libre-barcode-128-regular leading-none scale-200">{child.control_no}</span>
-                        <p className="leading-none text-[15px]">{child.control_no}</p>
+                        <div className="rotate-[270deg] origin-center leading-none bg-yellow-200">
+                        {/* <span className="libre-barcode-128-regular leading-none scale-200">{child.control_no}</span> */}
+                        <span><Barcode value={child.control_no} format="CODE128" height={25}/></span>
+                        {/* <p className="leading-none text-[15px]">{child.control_no}</p> */}
                         </div>
                         </div>
                     </div>

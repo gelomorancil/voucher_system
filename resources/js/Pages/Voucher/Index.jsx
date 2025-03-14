@@ -13,6 +13,7 @@ import VoucherCount from "./Partials/VoucherCount";
 import VoucherUpdate from "./Partials/VoucherUpdate";
 import ParentTable from "./Partials/ParentTable";
 import ProfileTable from "./Partials/ProfileTable";
+import BarcodeScanner from "@/Components/BarcodeScanner";
 
 const Index = ({
     profile,
@@ -88,6 +89,10 @@ const Index = ({
                                 </button>
                             </div>
                         )}
+                    </div>
+
+                    <div className="bg-white shadow-sm sm:rounded-lg p-4">
+                        {/* <BarcodeScanner /> */}
                     </div>
                     {/* END OF NOTIFICATION TOAST */}
                     <VoucherCount

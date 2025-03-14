@@ -78,8 +78,8 @@ class VoucherParentsController extends Controller
             
             // Generate the child by getting the last id of the parent the creating of control no sa babaw. 
             for ($i = 0; $i < $request->qty; $i++) {
-                $currentDate = now()->format('Ymd');
-                $controlNo = $currentDate . $new_parent->id . str_pad($i + 1, 6, '0', STR_PAD_LEFT);
+                $currentDate = now()->format('Y');
+                $controlNo = $currentDate . $new_parent->id . str_pad($i + 1, 5, '0', STR_PAD_LEFT);
                 Voucher_child::create([
                     'voucher_parent_id' => $new_parent->id,
                     'control_no' => $controlNo,

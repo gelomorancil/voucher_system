@@ -21,6 +21,8 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
-        "react-apexcharts": "^1.7.0"
+        "@zxing/library": "^0.21.3",
+        "react-apexcharts": "^1.7.0",
+        "react-barcode": "^1.5.3"
     }
 }
