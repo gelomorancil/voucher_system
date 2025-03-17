@@ -26,6 +26,7 @@ class VoucherParentsController extends Controller
 
         $parent = Voucher_parents::where('active', 1)
             ->with('voucher_profile')
+            ->where('uid', $user->id)
             ->withCount([
                 'voucher_children as buy_count' => function ($query) {
                     $query->where('buy', 1)->where('claim', 0);
