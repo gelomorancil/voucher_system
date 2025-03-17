@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "@zxing/library": "^0.21.3",
+        "quagga": "^0.12.1",
         "react-apexcharts": "^1.7.0",
         "react-barcode": "^1.5.3"
     }

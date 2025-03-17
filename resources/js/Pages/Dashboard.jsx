@@ -19,8 +19,8 @@ export default function Dashboard() {
                             You're logged in!
                         </div>
                         {/* <button className='bg-purple-100 p-2'>CLICK ME!</button> */}
-                        <Link href={route('voucher.create')} className='bg-purple-100 p-2'>Redirect Here</Link>
-                        <Link href={route('voucher.index')} className='bg-purple-100 p-2'>Voucher List</Link>
+                        {/* <Link href={route('voucher.create')} className='bg-purple-100 p-2'>Redirect Here</Link> */}
+                        <Link href={route('parent.index')} className='bg-purple-100 p-2'>Voucher List</Link>
                     </div>
                 </div>
             </div>
