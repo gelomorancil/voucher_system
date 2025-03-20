@@ -104,6 +104,27 @@ class VoucherChildController extends Controller
         }
     }
     
+    public function mobileUpdateBuy(Request $request)
+    {
+        // The logic you have for updating the voucher
+        $voucher = Voucher_child::where('control_no', $request->control_no)->first();
+
+        if (!$voucher) {
+            return response()->json(['error' => 'Voucher does not exist!'], 404);
+        }
+
+        if ($voucher->buy == 1 || $voucher->claim == 1) {
+            return response()->json(['error' => 'Voucher is already used!'], 400);
+        }
+
+        try {
+            $voucher->update(['buy' => 1]);
+            return response()->json(['message' => 'Voucher updated successfully!', 'voucher' => $voucher], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Uh oh, something went wrong.'], 500);
+        }
+    }
+
     public function updateClaim(Request $request)
     {
         $request->validate([
