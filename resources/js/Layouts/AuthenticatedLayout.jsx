@@ -14,45 +14,45 @@ export default function AuthenticatedLayout({ header, children }) {
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
-                            <div className="flex shrink-0 items-center">
+                            {/* <div className="flex shrink-0 items-center">
                                 <Link href="/">
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
-                            </div>
+                            </div> */}
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
+                                {/* <NavLink
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
                                 >
                                     Dashboard
-                                </NavLink>
-                                <NavLink
+                                </NavLink> */}
+                                {/* <NavLink
                                     href={route('voucher.index')}
                                     active={route().current('voucher.index')}
                                 >
-                                    Voucher Profiles
-                                </NavLink>
+                                    Voucher
+                                </NavLink> */}
                                 <NavLink
                                     href={route('parent.index')}
                                     active={route().current('parent.index')}
                                 >
-                                    Voucher Parents
+                                    Voucher
                                 </NavLink>
                                 <NavLink
                                     href={route('child.index')}
                                     active={route().current('child.index')}
                                 >
-                                    Voucher Children
+                                    Voucher List
                                 </NavLink>
                             </div>
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
-                            <div className="relative ms-3">
+                            <div className="relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
@@ -96,7 +96,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                         </div>
 
-                        <div className="-me-2 flex items-center sm:hidden">
+                        <div className="me-2 flex items-center sm:hidden">
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
@@ -146,11 +146,23 @@ export default function AuthenticatedLayout({ header, children }) {
                     }
                 >
                     <div className="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
+                        {/* <ResponsiveNavLink
                             href={route('dashboard')}
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink> */}
+                        <ResponsiveNavLink
+                            href={route('parent.index')}
+                            active={route().current('parent.index')}
+                        >
+                            Voucher
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('child.index')}
+                            active={route().current('child.index')}
+                        >
+                            Voucher List
                         </ResponsiveNavLink>
                     </div>
 
@@ -180,15 +192,21 @@ export default function AuthenticatedLayout({ header, children }) {
                 </div>
             </nav>
 
-            {header && (
+            {/* {header && (
                 <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                    <div className="mx-auto px-4 py-6 sm:px-6 lg:px-8">
                         {header}
                     </div>
                 </header>
-            )}
+            )} */}
 
-            <main>{children}</main>
+            <main className='flex gap-10'>
+                {/* <div className="sidenav bg-green-200 max-w-7xl w-full h-screen">wasup
+                </div> */}
+                <div className="children">
+                {children}
+                </div>
+            </main>
         </div>
     );
 }

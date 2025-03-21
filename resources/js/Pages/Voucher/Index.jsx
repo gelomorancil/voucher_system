@@ -62,7 +62,13 @@ const Index = ({
 
     return (
         <>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout
+            header={
+                <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                    Dashboard
+                </h2>
+            }
+>
                 <Head title="Dashboard" />
                 <div className="py-12 px-60">
                     {/* NOTIFICATION TOAST */}
@@ -91,9 +97,9 @@ const Index = ({
                         )}
                     </div>
 
-                    <div className="bg-white shadow-sm sm:rounded-lg p-4">
-                        {/* <BarcodeScanner /> */}
-                    </div>
+                    {/* <div className="bg-white shadow-sm sm:rounded-lg p-4">
+                        <BarcodeScanner />
+                    </div> */}
                     {/* END OF NOTIFICATION TOAST */}
                     <VoucherCount
                         total={total}
