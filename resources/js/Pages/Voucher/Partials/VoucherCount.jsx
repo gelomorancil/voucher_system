@@ -23,8 +23,9 @@ const VoucherCount = ({ total, bought, claimed, not_bought }) => {
                 remaining={remaining}
             />
             <div className="flex flex-col w-7/12 justify-between">
+            <VoucherUpdate />
                 <div className="flex justify-between gap-2">
-                    <div className="w-[300px] h-52 bg-white shadow-sm border-gray-200 border-1 rounded-xl p-4">
+                    <div className="w-[300px] h-auto bg-white shadow-sm border-gray-200 border-1 rounded-xl p-4">
                         <div className="text-md uppercase font-bold w-full pb-1 mb-2">
                             Total Quantity
                         </div>
@@ -71,7 +72,7 @@ const VoucherCount = ({ total, bought, claimed, not_bought }) => {
                         </div>
                     </div>
                 </div>
-                <VoucherUpdate />
+                
             </div>
         </div>
     );

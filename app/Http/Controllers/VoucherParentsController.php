@@ -12,45 +12,63 @@ use Inertia\Inertia;
 class VoucherParentsController extends Controller
 {
     public function index()
-    {
-        // PARA NADI SA COUNT GIN COMBINE KO NALANG MGA THINGYS IDK IF IT WILL WORK BUT YEA
-        // Count total voucher children
-        $user = auth()->user();
-        $total = Voucher_child::count();
-        $bought = Voucher_child::where('buy', 1)->where('claim', 0)->count();
-        $claimed = Voucher_child::where('claim', 1)->where('buy', 1)->count();
-        $not_bought = Voucher_child::where('buy', 0)->where('claim', 0)->count();
-        $profile = Voucher_profile::where('active', 1)
-            ->where('uid', $user->id)
-            ->get();
+{
+    $user = auth()->user();
 
-        $parent = Voucher_parents::where('active', 1)
-            ->with('voucher_profile')
-            ->where('uid', $user->id)
-            ->withCount([
-                'voucher_children as buy_count' => function ($query) {
-                    $query->where('buy', 1)->where('claim', 0);
-                },
-                'voucher_children as claimed_count' => function ($query) {
-                    $query->where('claim', 1)->where('buy', 1);
-                },
-                'voucher_children as not_bought_or_claimed_count' => function ($query) {
-                    $query->where('buy', 0)->where('claim', 0);
-                }
-            ])
-            ->get();
+    // Get the IDs of voucher parents uploaded by the authenticated user
+    $parentIds = Voucher_parents::where('uid', $user->id)
+        ->where('active', 1)
+        ->pluck('id');
 
-        return Inertia::render('Voucher/Index', [
-            'parent' => $parent,
-            'profile' => $profile,
-            'success' => session('success'),
-            'error' => session('error'),
-            'total' => $total,
-            'bought' => $bought,
-            'claimed' => $claimed,
-            'not_bought' => $not_bought
-        ]);
-    }
+    // Count voucher children **only** from the voucher parents uploaded by the user
+    $total = Voucher_child::whereIn('voucher_parent_id', $parentIds)->count();
+    $bought = Voucher_child::whereIn('voucher_parent_id', $parentIds)
+        ->where('buy', 1)
+        ->where('claim', 0)
+        ->count();
+    $claimed = Voucher_child::whereIn('voucher_parent_id', $parentIds)
+        ->where('claim', 1)
+        ->where('buy', 1)
+        ->count();
+    $not_bought = Voucher_child::whereIn('voucher_parent_id', $parentIds)
+        ->where('buy', 0)
+        ->where('claim', 0)
+        ->count();
+
+    // Get profile details
+    $profile = Voucher_profile::where('active', 1)
+        ->where('uid', $user->id)
+        ->get();
+
+    // Get parent vouchers uploaded by the user with related voucher children counts
+    $parent = Voucher_parents::where('active', 1)
+        ->where('uid', $user->id)
+        ->with('voucher_profile')
+        ->withCount([
+            'voucher_children as buy_count' => function ($query) {
+                $query->where('buy', 1)->where('claim', 0);
+            },
+            'voucher_children as claimed_count' => function ($query) {
+                $query->where('claim', 1)->where('buy', 1);
+            },
+            'voucher_children as not_bought_or_claimed_count' => function ($query) {
+                $query->where('buy', 0)->where('claim', 0);
+            }
+        ])
+        ->get();
+
+    return Inertia::render('Voucher/Index', [
+        'parent' => $parent,
+        'profile' => $profile,
+        'success' => session('success'),
+        'error' => session('error'),
+        'total' => $total,
+        'bought' => $bought,
+        'claimed' => $claimed,
+        'not_bought' => $not_bought
+    ]);
+}
+
 
     public function create()
     {

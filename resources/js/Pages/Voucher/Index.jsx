@@ -70,7 +70,7 @@ const Index = ({
             }
 >
                 <Head title="Dashboard" />
-                <div className="py-12 px-60">
+                <div className="py-12 px-60 w-full">
                     {/* NOTIFICATION TOAST */}
                     <div className="fixed top-4 right-4 z-50 flex flex-col gap-4 ">
                         {success && isVisibleSuccess && (
