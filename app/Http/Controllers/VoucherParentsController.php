@@ -15,12 +15,19 @@ class VoucherParentsController extends Controller
 {
     $user = auth()->user();
 
-    // Get the IDs of voucher parents uploaded by the authenticated user
-    $parentIds = Voucher_parents::where('uid', $user->id)
-        ->where('active', 1)
-        ->pluck('id');
+    // Check if the user is a superadmin
+    $isSuperAdmin = $user->superadmin == 1;
 
-    // Count voucher children **only** from the voucher parents uploaded by the user
+    // If superadmin, get all voucher parents; otherwise, get only the ones uploaded by the user
+    $parentQuery = Voucher_parents::where('active', 1);
+    
+    if (!$isSuperAdmin) {
+        $parentQuery->where('uid', $user->id);
+    }
+
+    $parentIds = $parentQuery->pluck('id');
+
+    // Count vouchers based on the superadmin condition
     $total = Voucher_child::whereIn('voucher_parent_id', $parentIds)->count();
     $bought = Voucher_child::whereIn('voucher_parent_id', $parentIds)
         ->where('buy', 1)
@@ -35,14 +42,17 @@ class VoucherParentsController extends Controller
         ->where('claim', 0)
         ->count();
 
-    // Get profile details
-    $profile = Voucher_profile::where('active', 1)
-        ->where('uid', $user->id)
-        ->get();
+    // If superadmin, get all profiles; otherwise, get only the user's profile
+    $profileQuery = Voucher_profile::where('active', 1);
+    
+    if (!$isSuperAdmin) {
+        $profileQuery->where('uid', $user->id);
+    }
 
-    // Get parent vouchers uploaded by the user with related voucher children counts
-    $parent = Voucher_parents::where('active', 1)
-        ->where('uid', $user->id)
+    $profile = $profileQuery->get();
+
+    // Get parent vouchers with related voucher children counts
+    $parent = $parentQuery
         ->with('voucher_profile')
         ->withCount([
             'voucher_children as buy_count' => function ($query) {
@@ -68,6 +78,7 @@ class VoucherParentsController extends Controller
         'not_bought' => $not_bought
     ]);
 }
+
 
 
     public function create()
