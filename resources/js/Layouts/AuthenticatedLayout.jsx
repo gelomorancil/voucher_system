@@ -12,7 +12,7 @@ export default function AuthenticatedLayout({ header, children }) {
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screew-full bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto">
                     <div className="flex h-16 justify-between">
@@ -198,12 +198,13 @@ export default function AuthenticatedLayout({ header, children }) {
                         {header}
                     </div>
                 </header>
-            )} */}
+            )} */}  
 
-            <main className='flex gap-10'>
-                {/* <div className="sidenav bg-green-200 max-w-7xl w-full h-screen">wasup
-                </div> */}
-                <div className="children">
+            <main className='flex'>
+                <div className="sidenav bg-white max-w-xs w-96 h-screen rounded-xl shadow-sm">wasup
+
+                </div>
+                <div className="children w-full p-6">
                 {children}
                 </div>
             </main>

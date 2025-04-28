@@ -31,7 +31,7 @@ const ProfileCreate = () => {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onFinish: () => reset(),
-            data: formData, // Pass FormData to Inertia
+            data: formData,
         });
     };
 
@@ -42,6 +42,7 @@ const ProfileCreate = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
+
     return (
         <>
             <section>
