@@ -35,7 +35,7 @@ const PrintPreview = ({ voucher_child }) => {
                             <p className="text-mdmax-w-[2in] break-words">
                                 {child.voucher_parent.voucher_profile.voucher_description}
                             </p>
-                            <img src={`/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover mt-12" />
+                            <img src={`/uploads/images/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover mt-12" />
                         </div>
                         <div className="bg-white w-2/12 text-gray-700 flex flex-col items-center justify-center text-[10px] text-center font-semibold">
                         <div className="rotate-[270deg] origin-center leading-none">
@@ -65,7 +65,7 @@ const PrintPreview = ({ voucher_child }) => {
                             <p className="text-mdmax-w-[2in] break-words">
                                 {child.voucher_parent.voucher_profile.voucher_description}
                             </p>
-                            <img src={`/storage/uploads/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover mt-12" />
+                            <img src={`/uploads/images/${child.voucher_parent.voucher_profile.image_name}`} alt="Voucher Image" className="h-12 w-12 object-cover mt-12" />
                         </div>
                         <div className="bg-white w-3/12 text-gray-700 flex flex-col items-center justify-center text-[10px] text-center font-semibold">
                         <div className="rotate-[270deg] overflow-hidden">

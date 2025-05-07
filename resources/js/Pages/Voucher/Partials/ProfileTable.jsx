@@ -31,7 +31,7 @@ const ProfileTable = ({profile}) => {
                                 <td className="px-4 py-2">{voucher.id}</td>
                                 <td className="px-4 py-2">
                                     <img
-                                        src={`/storage/uploads/${voucher.image_name}`}
+                                        src={`/uploads/images/${voucher.image_name}`}
                                         alt="Voucher Image"
                                         className="h-20 w-20 object-cover"
                                     />

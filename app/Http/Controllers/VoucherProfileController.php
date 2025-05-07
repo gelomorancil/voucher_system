@@ -45,35 +45,45 @@ class VoucherProfileController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'voucher_name' => 'required|string',
-        'voucher_description' => 'required|string',
-        'uid' => 'nullable',
-        'image_name' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
-
-    try {
-        $imageName = null;
-
-        if ($request->hasFile('image_name')) {
-            $imageName = Str::random(32) . "." . $request->image_name->getClientOriginalExtension();
-            Storage::disk('public')->put("uploads/{$imageName}", file_get_contents($request->image_name));
-        }
-
-        Voucher_profile::create([
-            'voucher_name' => $request->voucher_name,
-            'voucher_description' => $request->voucher_description,
-            // 'uid' => $request->uid,
-            'uid' => auth()->id(),
-            'image_name' => $imageName,
+    {
+        $request->validate([
+            'voucher_name' => 'required|string',
+            'voucher_description' => 'required|string',
+            'uid' => 'nullable',
+            'image_name' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        return redirect(route('parent.index'))->with('success', 'Voucher Profile created successfully!');
-    } catch (\Exception $e) {
-        return redirect(route('parent.index'))->with('error', 'Something went wrong: ' . $e->getMessage());
+    
+        try {
+            $imageName = null;
+    
+            if ($request->hasFile('image_name')) {
+                $image = $request->file('image_name');
+                $imageName = Str::random(32) . '.' . $image->getClientOriginalExtension();
+    
+                // Define your custom path relative to the public folder
+                $destinationPath = public_path('uploads/images');
+    
+                // Ensure the directory exists
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+    
+                // Move the file to the target directory
+                $image->move($destinationPath, $imageName);
+            }
+    
+            Voucher_profile::create([
+                'voucher_name' => $request->voucher_name,
+                'voucher_description' => $request->voucher_description,
+                'uid' => auth()->id(),
+                'image_name' => $imageName,
+            ]);
+    
+            return redirect(route('parent.index'))->with('success', 'Voucher Profile created successfully!');
+        } catch (\Exception $e) {
+            return redirect(route('parent.index'))->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
     }
-}
 
 
     /**

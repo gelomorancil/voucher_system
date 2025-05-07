@@ -42,12 +42,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Voucher
                                 </NavLink>
-                                <NavLink
+                                {/* <NavLink
                                     href={route('child.index')}
                                     active={route().current('child.index')}
                                 >
                                     Voucher List
-                                </NavLink>
+                                </NavLink> */}
                             </div>
                         </div>
 
@@ -201,9 +201,9 @@ export default function AuthenticatedLayout({ header, children }) {
             )} */}  
 
             <main className='flex'>
-                <div className="sidenav bg-white max-w-xs w-96 h-screen rounded-xl shadow-sm">wasup
+                {/* <div className="sidenav bg-white max-w-xs w-96 h-screen rounded-xl shadow-sm">wasup
 
-                </div>
+                </div> */}
                 <div className="children w-full p-6">
                 {children}
                 </div>

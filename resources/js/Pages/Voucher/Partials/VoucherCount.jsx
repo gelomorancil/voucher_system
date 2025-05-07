@@ -5,6 +5,7 @@ import VoucherUpdate from "./VoucherUpdate";
 const VoucherCount = ({ total, bought, claimed, not_bought }) => {
 
     const remaining = total - (bought + claimed);
+    console.log(bought)
     const formatNumber = (num) => {
         if (num >= 1000000) {
             return (num / 1000000).toFixed(num % 1000000 === 0 ? 0 : 1) + "M";
@@ -25,7 +26,7 @@ const VoucherCount = ({ total, bought, claimed, not_bought }) => {
             <div className="flex flex-col w-7/12 justify-between">
             <VoucherUpdate />
                 <div className="flex justify-between gap-2">
-                    <div className="w-[300px] h-auto bg-white shadow-sm border-gray-200 border-1 rounded-xl p-4">
+                    <div className="w-4/12 h-auto bg-white shadow-sm border-gray-200 border-1 rounded-xl p-4">
                         <div className="text-md uppercase font-bold w-full pb-1 mb-2">
                             Total Quantity
                         </div>
@@ -35,7 +36,7 @@ const VoucherCount = ({ total, bought, claimed, not_bought }) => {
                             {/* 100000 */}
                         </h1>
                     </div>
-                    <div className="w-[300px] h-52 flex flex-col justify-between gap-2">
+                    <div className="w-4/12 h-52 flex flex-col justify-between gap-2">
                         <div className="bg-white shadow-sm border-gray-200 border-1 rounded-xl w-full p-4">
                             <div className="text-md uppercase font-bold w-full pb-1 mb-1">
                                 Purchased
@@ -53,7 +54,7 @@ const VoucherCount = ({ total, bought, claimed, not_bought }) => {
                             </h1>
                         </div>
                     </div>
-                    <div className="w-[300px] h-52 flex flex-col justify-between gap-2">
+                    <div className="w-4/12 h-52 flex flex-col justify-between gap-2">
                         <div className="bg-white shadow-sm border-gray-200 border-1 rounded-xl w-full p-4">
                             <div className="text-md uppercase font-bold w-full pb-1 mb-1">
                                 Claimed
